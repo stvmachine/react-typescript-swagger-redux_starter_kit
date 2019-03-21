@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-standard",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "prettier": true
+  }
+}
