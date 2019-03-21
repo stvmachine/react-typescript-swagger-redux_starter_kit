@@ -1,6 +1,5 @@
 import * as styledComponents from 'styled-components'
-import { ThemedStyledComponentsModule } from 'styled-components'
-import { myTheme } from './'
+import { ThemedStyledComponentsModule, DefaultTheme } from 'styled-components'
 
 const {
   default: styled,
@@ -8,7 +7,7 @@ const {
   createGlobalStyle,
   keyframes,
   ThemeProvider,
-} = styledComponents as ThemedStyledComponentsModule<any>
+} = styledComponents as ThemedStyledComponentsModule<DefaultTheme>
 
 export { css, createGlobalStyle, keyframes, ThemeProvider }
 export default styled

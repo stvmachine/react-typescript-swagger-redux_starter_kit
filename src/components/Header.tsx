@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import styled from "styled-components"
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
 interface Props {
   count?: number
@@ -10,11 +10,11 @@ interface TitleProps {
 }
 
 const Title = styled.h1<TitleProps>`
-  color: ${props =>
-    props.isActive ? props.theme.colors.main : props.theme.colors.secondary};
+  color: ${({ isActive, theme: { colors } }) =>
+    isActive ? colors.main : colors.secondary};
 `
 
-export default class Header extends React.Component<Props> {
+export default class Header extends Component<Props> {
   static defaultProps: Props = {
     count: 10,
   }
