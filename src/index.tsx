@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { myTheme } from './theme'
 import { ThemeProvider } from './theme/styled'
+import AppRouter from './routes/AppRouter'
 
 ReactDOM.render(
   <ThemeProvider theme={myTheme}>
-    <App />
+    <AppRouter />
   </ThemeProvider>,
   document.getElementById('root')
 )
