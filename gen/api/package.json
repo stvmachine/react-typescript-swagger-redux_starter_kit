@@ -1,0 +1,22 @@
+{
+  "name": "typescript-fetch-api",
+  "version": "0.0.0",
+  "license": "Unlicense",
+  "main": "./dist/api.js",
+  "dependencies": {
+    "core-js": "^2.4.0",
+    "isomorphic-fetch": "^2.2.1",
+    "portable-fetch": "^3.0.0"
+  },
+  "scripts": {
+    "prepublish": "tsc",
+    "test": "tslint api.ts"
+  },
+  "devDependencies": {
+    "@types/core-js": "^2.5.0",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/node": "^11.11.6",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  }
+}
