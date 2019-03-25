@@ -9,7 +9,7 @@ const pets = new Api.PetApi()
 function* handleAddPet(action: petstore.AddPetAction): SagaIterator {
   try {
     let result = yield call(function() {
-      return pets.addPet({ body: action.payload })
+      return pets.addPet(action.payload)
     })
 
     yield put(petstore.addPet.done({ params: action.payload, result }))
@@ -21,7 +21,7 @@ function* handleAddPet(action: petstore.AddPetAction): SagaIterator {
 function* handleRequestPets(action: petstore.RequestPetsAction): SagaIterator {
   try {
     let result: Api.Pet[] = yield call(() => {
-      return pets.findPetsByStatus({ status: ['available'] })
+      return pets.findPetsByStatus(['available'])
     })
 
     yield put(petstore.requestPets.done({ params: action.payload, result }))
