@@ -4,11 +4,16 @@ import * as serviceWorker from './serviceWorker'
 import { myTheme } from './theme'
 import { ThemeProvider } from './theme/styled'
 import AppRouter from './routes/AppRouter'
+import { Provider } from 'react-redux'
+
+import { store } from './store'
 
 ReactDOM.render(
-  <ThemeProvider theme={myTheme}>
-    <AppRouter />
-  </ThemeProvider>,
+  <Provider store={store}>
+    <ThemeProvider theme={myTheme}>
+      <AppRouter />
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 )
 
