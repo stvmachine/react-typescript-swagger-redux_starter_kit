@@ -38,7 +38,7 @@ const pets = createSlice({
       state.errorMessage = ''
     },
     addSuccess: (state, { payload }) => {
-      state.pets = [...state.pets, payload]
+      state.pets = [payload, ...state.pets]
     },
     addFailure: (state, { payload }) => {
       state.errorMessage = payload
