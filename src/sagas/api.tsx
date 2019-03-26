@@ -4,6 +4,7 @@ import * as Api from 'typescript-fetch-api'
 import { PayloadAction } from 'redux-starter-kit/src/createAction'
 
 import pets, { IAddPetPayload } from '../store/pets'
+import { Pet } from '../store/pets/types'
 const petsApi = new Api.PetApi()
 
 export const runApi = (API: any, operation: string, ...params: any[]) =>
@@ -20,7 +21,7 @@ export const runApi = (API: any, operation: string, ...params: any[]) =>
 
 function* handleAddPet(action: PayloadAction<IAddPetPayload>) {
   try {
-    let result = yield call(runApi, petsApi, 'addPet', action.payload)
+    let result: Pet = yield call(runApi, petsApi, 'addPet', action.payload)
     yield put(pets.actions.addSuccess(result))
   } catch (error) {
     yield put(pets.actions.addFailure(error))
@@ -29,7 +30,7 @@ function* handleAddPet(action: PayloadAction<IAddPetPayload>) {
 
 function* handleRequestPets() {
   try {
-    let result: Api.Pet[] = yield call(runApi, petsApi, 'findPetsByStatus', [
+    let result: Pet[] = yield call(runApi, petsApi, 'findPetsByStatus', [
       'available',
     ])
 
