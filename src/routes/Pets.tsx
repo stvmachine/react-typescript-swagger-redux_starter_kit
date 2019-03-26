@@ -32,8 +32,7 @@ class Pets extends React.Component<any, State> {
   }
 
   render() {
-    const { pets, loadPets } = this.props
-    console.log(pets)
+    const { pets, isFetching, errorMessage, loadPets } = this.props
     return (
       <div>
         <h1>Petstore</h1>
@@ -41,11 +40,9 @@ class Pets extends React.Component<any, State> {
           <button onClick={loadPets}>Reload</button>
           &nbsp;
           <button onClick={this.addPet}>Add Pet</button>
-          {this.props.isFetching && <span>Saving&hellip;</span>}
+          {isFetching && <span>Saving&hellip;</span>}
         </p>
-        {this.props.errorMessage && (
-          <p style={{ color: 'red' }}>{this.props.errorMessage}</p>
-        )}
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         {!!pets.length && (
           <table style={{ margin: '0 auto', width: '60%' }}>
             <thead>
