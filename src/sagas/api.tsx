@@ -1,36 +1,46 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
 import { SagaIterator } from 'redux-saga'
 import * as Api from 'typescript-fetch-api'
+import { PayloadAction } from 'redux-starter-kit/src/createAction'
 
-import * as petstore from '../store/petstore/actions'
+import pets, { IAddPetPayload } from '../store/pets'
+import { Pet } from '../store/pets/types'
+const petsApi = new Api.PetApi()
 
-const pets = new Api.PetApi()
+export const runApi = (API: any, operation: string, ...params: any[]) =>
+  new Promise((resolve, reject) =>
+    API[operation](...params)
+      .then((response: any) => {
+        if (response instanceof Array) {
+          return resolve(response)
+        }
+        return resolve(response.json())
+      })
+      .catch((error: any) => reject(error))
+  )
 
-function* handleAddPet(action: petstore.AddPetAction): SagaIterator {
+function* handleAddPet(action: PayloadAction<IAddPetPayload>) {
   try {
-    let result = yield call(function() {
-      return pets.addPet(action.payload)
-    })
-
-    yield put(petstore.addPet.done({ params: action.payload, result }))
+    let result: Pet = yield call(runApi, petsApi, 'addPet', action.payload)
+    yield put(pets.actions.addSuccess(result))
   } catch (error) {
-    yield put(petstore.addPet.failed({ params: action.payload, error }))
+    yield put(pets.actions.addFailure(error))
   }
 }
 
-function* handleRequestPets(action: petstore.RequestPetsAction): SagaIterator {
+function* handleRequestPets() {
   try {
-    let result: Api.Pet[] = yield call(() => {
-      return pets.findPetsByStatus(['available'])
-    })
+    let result: Pet[] = yield call(runApi, petsApi, 'findPetsByStatus', [
+      'available',
+    ])
 
-    yield put(petstore.requestPets.done({ params: action.payload, result }))
+    yield put(pets.actions.getSuccess(result))
   } catch (error) {
-    yield put(petstore.requestPets.failed({ params: action.payload, error }))
+    yield put(pets.actions.getFailure(error))
   }
 }
 
 export default function* saga(): SagaIterator {
-  yield takeEvery(petstore.addPet.started, handleAddPet)
-  yield takeEvery(petstore.requestPets.started, handleRequestPets)
+  yield takeEvery(pets.actions.add.toString(), handleAddPet)
+  yield takeEvery(pets.actions.get.toString(), handleRequestPets)
 }
